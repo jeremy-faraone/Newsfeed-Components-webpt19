@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+  title: 'Jeremy',
+    date: 'June 23rd, 1984',
+    firstParagraph: `I am Jeremy.`,
+
+    secondParagraph: `Last name Faraone.`,
+
+    thirdParagraph: `From San Jose, CA.`
   }
 ];
 
@@ -96,12 +105,64 @@ const data = [
 
     {three separate paragraph elements}
 
-    <span class='expandButton'>+</span>
+    <span class='expandButton'></span>
   </div>
+*/
+function articleMaker(title, date, par1, par2, par3){
 
+  // new elements
+  const article = document.createElement('div')
+  const header = document.createElement('h2')
+  const pDate = document.createElement('p') 
+  const p1 = document.createElement('p') 
+  const p2 = document.createElement('p') 
+  const p3 = document.createElement('p')
+  const span = document.createElement('span')
+  
+// append
+  article.appendChild(header)
+  article.appendChild(pDate)
+  article.appendChild(p1)
+  article.appendChild(p2)
+  article.appendChild(p3)
+  article.appendChild(span)
+ 
+// add classes
+  article.classList.add('article')
+  pDate.classList.add('date')
+  p1.classList.add('content')
+  p2.classList.add('content')
+  p3.classList.add('content')
+  span.classList.add('expandButton')
+  
+// add data
+  header.textContent = title
+  pDate.textContent = date
+  p1.textContent = par1
+  p2.textContent = par2
+  p3.textContent = par3
+
+  const close = '\u25b2';
+  const open = '\u25bc';
+  span.textContent = open
+
+  span.addEventListener('click', () => {
+   article.classList.toggle('article')
+   span.textContent = close
+})
+
+  return article
+}
+
+const homeDiv = document.querySelector('.articles');
+data.forEach(content => {
+  homeDiv.appendChild(articleMaker(content.title, content.date, content.firstParagraph, content.secondParagraph, content.thirdParagraph))
+});
+
+/*
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as its one argument, or 5 separate strings mapping to each property of an article object.
+  Your function should take either an object as its one argument, or 5 separate arguments mapping to each piece of the data object above.
 
   Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
 
